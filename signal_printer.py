@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np, scipy as sp, pandas as pd, scipy.stats, os, sys
 from scipy.io import wavfile
+from glob import glob
 
 
 training_data_info = pd.read_csv('Dataset\\training_data.csv')
@@ -16,8 +17,16 @@ for index, row in training_data_info.iterrows():
         # print(index)
         # print(row['PatientID'])
         directoryData = str('Dataset\\training_data\\')
-        directoryData = directoryData + (str(row['PatientID'])) + '*'+ str('.wav')
-        print(directoryData)
+        list_of_files = os.listdir(directoryData) #list of files in the current directory
+        recording_File_ID = row['PatientID']
+        
+        for each_file in list_of_files:
+            if recording_File_ID in each_file and '.wav' in each_file: print(each_file)
+
+        # filess = glob('*PatientID*')
+        # print(filess)
+        # directoryData = directoryData + (str(row['PatientID'])) + '*'+ str('.wav')
+        # print(directoryData)
         # samplerate, data = wavfile.read(directoryData)        
         # plt.plot(data)
         # plt.show()
